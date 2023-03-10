@@ -1,7 +1,9 @@
-#include <stdio.h>
+#include "myGrep.h"
 
-int main()
+int main(int argc, char* argv[])
 {
-        printf("Hello myGrep!\n");
-        return 0;
+    my::grep test(argc, argv);
+    test.run();
+
+    return 0;
 }
