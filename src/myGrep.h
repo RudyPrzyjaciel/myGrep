@@ -6,23 +6,29 @@ namespace my
     class grep
     {
         int argc;
+        int numberOfThreads = 4;
         std::string* argString;
         std::string startDirectory;
         std::string resultFileName;
         std::string logFileName;
 
-        bool processInputArguments();
+        void processInputArguments();
+        void setSearchFlags();
+        void createListOfFiles();
+        void searchForPattern();
+        void prepareOutputFiles();
+        void printOutputToConsole();
 
     public:
         grep(int argc, char* argv[]);
         ~grep();
-        bool run();
+        void run();
         void printArguments();
     
     };
 
     void logMessage(const std::string message);
-
+    std::string extractProgramName(const std::string& argument);
 
 //  nice templates to concatenate multiple strings using variadic template function
 //  based on shaffooo's response to topic on stackoverflow
