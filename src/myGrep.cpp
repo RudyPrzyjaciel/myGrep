@@ -1,90 +1,24 @@
-#include "myGrep.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 
-void my::grep::processInputArguments()
-{
-    my::logMessage("grep.processInputArguments(): Started");
-    for(int i = 0; i < this->argc; i++)
-    {
-        my::logMessage(my::toString("Argument ", i+1, " : " , this->argString[i]));
+#define FAILURE_STATUS -1
+#define SUCCESS_STATUS 0
+
+int main(int argc, char* argv[]) {
+    std::ifstream file (argv[1]);
+    if (!file.is_open()) {
+        std::cout << "failure" << std::endl;
+        return FAILURE_STATUS;
     }
-}
+    std::string line;
+    std::cout << "looking for \""<< argv[2] << "\"" << std::endl;
 
-void my::grep::setSearchFlags()
-{
-    my::logMessage("setSearchFlags(): Started");
-    this->argString[0] = my::extractProgramName(this->argString[0]);
-    this->resultFileName = my::toString(argString[0], ".txt");
-    this->logFileName = my::toString(argString[0], ".log");
-    my::logMessage(my::toString("Program Name: ", this->argString[0]));
-    my::logMessage(my::toString("Result File: ", this->resultFileName));
-    my::logMessage(my::toString("Log File: ", this->logFileName));
-}
-
-void my::grep::searchForPattern()
-{
-    my::logMessage("searchForPattern(): Started");
-    //Create workers and manage search of individual files
-}
-
-void my::grep::prepareOutputFiles()
-{
-    my::logMessage("prepareOutputFiles(): Started");
-    //Collect data and create two output files
-}
-
-void my::grep::printOutputToConsole()
-{
-    my::logMessage("printOutputToConsole(): Started");
-    //Prepare and print final message to console
-}
-
-void my::grep::createListOfFiles()
-{
-    my::logMessage("createListOfFiles(): Started");
-    //Create list of directories and files to be investigated
-}
-
-my::grep::grep(int argc, char *argv[])
-{
-    this->argc = argc;
-    this->argString = new std::string[this->argc];
-    for (int i = 0; i < argc; i++)
-    {
-        this->argString[i] = argv[i];
+    while(std::getline(file, line)) {
+        if(line.find(argv[2]) != line.npos) {
+            std::cout << line << std::endl;
+        }
     }
-}
 
-my::grep::~grep()
-{
-    delete[] argString;
-}
-
-void my::grep::printArguments()
-{
-    for(int i = 0; i < this->argc; i++)
-    {
-        my::logMessage(this->argString[i]);
-    }
-}
-
-void my::grep::run()
-{
-    my::logMessage("grep.run(): Running");
-    this->processInputArguments();
-    this->setSearchFlags();
-    this->searchForPattern();
-    this->prepareOutputFiles();
-    this->printOutputToConsole();
-}
-
-
-void my::logMessage(const std::string message)
-{
-    std::cout << message << std::endl;
-}
-
-std::string my::extractProgramName(const std::string &argument)
-{
-    std::size_t lastSlash = argument.find_last_of("/\\");
-    return argument.substr(lastSlash+1);
+    return SUCCESS_STATUS;
 }

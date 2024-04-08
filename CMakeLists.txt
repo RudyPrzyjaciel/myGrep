@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.13)
-project(myGrep)
+project(mygrep)
 
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRC 
-        src/main.cpp
-        src/myGrep.cpp)
+      src/mygrep.cpp)
 
-add_executable(myGrep ${SRC})
+add_executable(mygrep ${SRC})
+
