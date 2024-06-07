@@ -8,3 +8,4 @@ set(SRC
 
 add_executable(mygrep ${SRC})
 
+include(cmake/tests.cmake)
