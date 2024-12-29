@@ -4,7 +4,9 @@ project(mygrep)
 set(CMAKE_CXX_STANDARD 20)
 
 set(SRC 
-      src/mygrep.cpp)
+      src/main.cpp
+      src/MyGrep.cpp
+      )
 
 add_executable(mygrep ${SRC})
 

@@ -1,24 +1,50 @@
-#include <iostream>
+#include "MyGrep.hpp"
+
 #include <fstream>
-#include <string>
+#include <iostream>
+#include <ostream>
+#include <chrono>
 
-#define FAILURE_STATUS -1
-#define SUCCESS_STATUS 0
+int MyGrep::ProcessInputArguments(int argc, char *argv[]) { return 0; }
 
-int main(int argc, char* argv[]) {
-    std::ifstream file (argv[1]);
-    if (!file.is_open()) {
-        std::cout << "failure" << std::endl;
-        return FAILURE_STATUS;
+void MyGrep::PrintHelp() { return; }
+
+void MyGrep::FindInFile(std::string path, std::string key) {
+  std::fstream file{path, std::ios::in};
+  if (!file.is_open()) {
+    std::cout << path << " not found" << std::endl;
+    return;
+  }
+
+  std::string line = "";
+  while (std::getline(file, line)) {
+    if (!file.good()) {
+      std::cout << "this is not good" << std::endl;
+      return;
     }
-    std::string line;
-    std::cout << "looking for \""<< argv[2] << "\"" << std::endl;
 
-    while(std::getline(file, line)) {
-        if(line.find(argv[2]) != line.npos) {
-            std::cout << line << std::endl;
-        }
+    if (line.find(key) != line.npos) {
+      std::cout << line << std::endl;
     }
+  }
+}
 
-    return SUCCESS_STATUS;
+int MyGrep::PrepareOutputFiles() { return 0; }
+
+int MyGrep::Run(int argc, char *argv[]) {
+  int ret = 0;
+  ret = ProcessInputArguments(argc, argv);
+  if (ret != 0) {
+    return ret;
+  }
+
+  const char *filename = "/home/slitmano/projects/myGrep/build/test.txt";
+  pool.submit(FindInFile, filename, keyword);
+
+  ret = PrepareOutputFiles();
+  if (ret != 0) {
+    return ret;
+  }
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+  return ret;
 }
