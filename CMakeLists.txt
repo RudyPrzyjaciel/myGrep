@@ -8,6 +8,8 @@ set(SRC
       src/MyGrep.cpp
       )
 
-add_executable(mygrep ${SRC})
+set(CXX_FLAGS -Wno-unused-parameter -Wall -Werror -Wpedantic -Wextra -Wconversion)
 
-include(cmake/tests.cmake)
+add_compile_options(${CXX_FLAGS})
+
+add_executable(mygrep ${SRC})

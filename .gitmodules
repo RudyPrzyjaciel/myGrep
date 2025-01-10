@@ -1,0 +1,3 @@
+[submodule "tests/fuzz/fuzztest"]
+	path = tests/fuzz/fuzztest
+	url = https://github.com/google/fuzztest.git
