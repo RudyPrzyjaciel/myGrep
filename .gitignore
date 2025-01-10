@@ -33,4 +33,6 @@
 
 #Other files and folders
 build
+dist
 .vscode
+.*
